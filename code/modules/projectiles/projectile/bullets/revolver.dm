@@ -12,9 +12,14 @@
 
 // .38 (Detective's Gun)
 
+/obj/item/projectile/bullet/c38_rubber
+	name = ".38 bullet"
+	knockdown = 100
+	stamina = 35
+
 /obj/item/projectile/bullet/c38
 	name = ".38 bullet"
-	damage = 25
+	stamina = 25
 
 // .357 (Syndie Revolver)
 
