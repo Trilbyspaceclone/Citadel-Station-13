@@ -543,8 +543,8 @@
 
 /obj/item/storage/belt/holster/full/PopulateContents()
 	new /obj/item/gun/ballistic/revolver/detective(src)
-	new /obj/item/ammo_box/c38(src)
-	new /obj/item/ammo_box/c38(src)
+	new /obj/item/ammo_box/c38_rubber(src)
+	new /obj/item/ammo_box/c38_rubber(src)
 
 /obj/item/storage/belt/fannypack
 	name = "fannypack"
