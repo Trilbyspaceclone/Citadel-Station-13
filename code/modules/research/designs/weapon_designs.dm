@@ -5,6 +5,13 @@
 /datum/design/c38/sec
 	id = "sec_38"
 	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 2500)
+	category = list("Ammo")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/c38_rubber/sec
+	id = "sec_38_rubber"
+	build_type = PROTOLATHE
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
