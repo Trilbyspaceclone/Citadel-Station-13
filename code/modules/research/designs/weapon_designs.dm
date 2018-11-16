@@ -12,6 +12,7 @@
 /datum/design/c38_rubber/sec
 	id = "sec_38_rubber"
 	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500)
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
