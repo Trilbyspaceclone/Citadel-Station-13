@@ -15,6 +15,15 @@
 	multiple_sprites = 1
 	materials = list(MAT_METAL = 20000)
 
+/obj/item/ammo_box/c38_rubber
+	name = "speed loader (.38 Rubber shot)"
+	desc = "Designed to quickly reload revolvers."
+	icon_state = "38"
+	ammo_type = /obj/item/ammo_casing/c38_rubber
+	max_ammo = 6
+	multiple_sprites = 1
+	materials = list(MAT_METAL = 15000)
+
 /obj/item/ammo_box/c9mm
 	name = "ammo box (9mm)"
 	icon_state = "9mmbox"
