@@ -241,7 +241,7 @@
 /datum/design/auto_rifle
 	name = "WT-550 Auto Rifle"
 	desc = "The out dated WT-550 Auto Rifle"
-	id = "wt550"
+	id = "auto_rifle"
 	materials = list(MAT_METAL = 60000, MAT_GLASS = 15000, MAT_TITANIUM = 8000)
 	build_path = /obj/item/gun/ballistic/automatic/wt550
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
