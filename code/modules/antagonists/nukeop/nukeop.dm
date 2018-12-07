@@ -3,6 +3,7 @@
 	roundend_category = "syndicate operatives" //just in case
 	antagpanel_category = "NukeOp"
 	job_rank = ROLE_OPERATIVE
+	faction = list(ROLE_SYNDICATE)
 	antag_moodlet = /datum/mood_event/focused
 	var/datum/team/nuclear/nuke_team
 	var/always_new_team = FALSE //If not assigned a team by default ops will try to join existing ones, set this to TRUE to always create new team.
