@@ -2,6 +2,7 @@
 	name = "Brother"
 	antagpanel_category = "Brother"
 	job_rank = ROLE_BROTHER
+	faction = list(ROLE_SYNDICATE)
 	var/special_role = ROLE_BROTHER
 	var/datum/team/brother_team/team
 	antag_moodlet = /datum/mood_event/focused
