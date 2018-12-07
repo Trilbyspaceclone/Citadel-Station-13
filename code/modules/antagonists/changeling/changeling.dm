@@ -6,6 +6,7 @@
 	name = "Changeling"
 	roundend_category  = "changelings"
 	antagpanel_category = "Changeling"
+	faction = list(ROLE_SYNDICATE)
 	job_rank = ROLE_CHANGELING
 	antag_moodlet = /datum/mood_event/focused
 
