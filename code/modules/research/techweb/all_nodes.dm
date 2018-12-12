@@ -638,14 +638,6 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000) //Just Synda fireaims
 	export_price = 7000
 
-/datum/techweb_node/oldguns
-	id = "oldguns"
-	display_name = "Russian Ballistics"
-	description = "Old russian ballistics."
-	design_ids = list("pistolm9mm", "bolt_clip", "n762sl")
-	prereq_ids = list("ballistic_weapons", "explosive_weapons")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000) //Just russian fireaims
-	export_price = 7000
 
 /datum/techweb_node/tech_shell
 	id = "tech_shell"
