@@ -51,14 +51,6 @@
 	build_path = /obj/item/ammo_box/a357
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
-/datum/design/50aem
-	name = "50ae mag"
-	id = "50aem"
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 600000, MAT_TITANIUM = 100000)
-	build_path = /obj/item/ammo_box/magazine/m50
-	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
-
 /datum/design/pin_testing
 	name = "Test-Range Firing Pin"
 	desc = "This safety firing pin allows firearms to be operated within proximity to a firing range."
