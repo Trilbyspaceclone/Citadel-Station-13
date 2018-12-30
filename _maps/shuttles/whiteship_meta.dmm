@@ -34,6 +34,7 @@
 /area/shuttle/abandoned/crew)
 "ah" = (
 /obj/machinery/door/airlock/external,
+/obj/structure/fans
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/docking_port/mobile{
 	callTime = 250;
