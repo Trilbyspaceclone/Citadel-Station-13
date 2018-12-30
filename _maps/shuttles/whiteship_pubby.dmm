@@ -15,6 +15,7 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Shuttle Airlock"
 	},
+/obj/structure/fans
 /turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned)
 "e" = (
