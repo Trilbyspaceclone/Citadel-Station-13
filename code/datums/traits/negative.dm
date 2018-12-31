@@ -282,10 +282,3 @@
 /datum/quirk/mute/add()
 	var/mob/living/carbon/human/H = quirk_holder
 	H.gain_trauma(mute, TRAUMA_RESILIENCE_SURGERY)
-
-/datum/quirk/mute/on_spawn()
-	var/mob/living/carbon/human/H = quirk_holder
-	var/obj/item/paper_bin = new(get_turf(H))
-	H.put_in_hands(bin)
-	H.regenerate_icons() 
-
