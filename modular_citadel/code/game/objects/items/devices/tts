@@ -1,4 +1,3 @@
-/obj/item/flashlight
 /obj/item/device/text_to_speech
 	name = "TTS device"
 	desc = "A device that speaks an inputted message. Given to crew which can not speak properly or at all."
