@@ -57,3 +57,19 @@
 	name = "Customizable dildo"
 	category = SLOT_IN_BACKPACK
 	path = /obj/item/dildo/custom
+
+/datum/gear/paperbin
+	name = "Paper Bin"
+	category = SLOT_IN_BACKPACK
+	path = /obj/item/paper_bin
+
+/datum/gear/crayons
+	name = "Box of crayons"
+	category = SLOT_IN_BACKPACK
+	path = /obj/item/storage/crayons
+
+/datum/gear/tts
+	name = "Tech To Speak"
+	category = SLOT_IN_BACKPACK
+	path = /obj/item/device/text_to_speech
+	cost = 3 //For mutes or such
