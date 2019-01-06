@@ -273,9 +273,9 @@
 			else
 				playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
 				if(!lying)				//CITADEL EDIT
-					Knockdown(100, override_duration = 30, override_stam = 25)
+					Knockdown(25, override_duration = 30, override_stam = 25)
 				else
-					Knockdown(100)
+					Knockdown(50)
 				log_combat(M, src, "tackled")
 				visible_message("<span class='danger'>[M] has tackled down [src]!</span>", \
 					"<span class='userdanger'>[M] has tackled down [src]!</span>")
