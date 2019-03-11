@@ -48,6 +48,19 @@
 		"iodine",
 		"bromine",
 		"stable_plasma"
+		)
+		list(
+		"oil",
+		"ash",
+		"ammonia"
+		)
+		list(
+		"phenol",
+		"acetone",
+		"diethylamine"
+		)
+		list(
+		"omnizine"
 	)
 	var/list/emagged_reagents = list(
 		"space_drugs",
@@ -537,8 +550,6 @@
 	flags_1 = NODECONSTRUCT_1
 
 	dispensable_reagents = list(
-		"mutagen",
-		"saltpetre",
 		"eznutriment",
 		"left4zednutriment",
 		"robustharvestnutriment",
@@ -547,10 +558,21 @@
 		"weedkiller",
 		"pestkiller",
 		"cryoxadone",
-		"ammonia",
 		"ash",
-		"diethylamine")
-	
+		"diethylamine"
+		)
+		list(
+		"saltpetre",
+		"mutagen",
+		"ammonia"
+		)
+		list(
+		"diethylamine"
+		)
+		list(
+		"omnizine"
+		)
+
 /obj/machinery/chem_dispenser/mutagensaltpeter/Initialize()
 	. = ..()
 	component_parts = list()
