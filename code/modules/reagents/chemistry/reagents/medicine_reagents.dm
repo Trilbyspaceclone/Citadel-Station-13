@@ -111,16 +111,6 @@
 		. = 1
 	..()
 
-/datum/reagent/medicine/inacusiate
-	name = "Inacusiate"
-	id = "inacusiate"
-	description = "Instantly restores all hearing to the patient, but does not cure deafness."
-	color = "#6600FF" // rgb: 100, 165, 255
-
-/datum/reagent/medicine/inacusiate/on_mob_life(mob/living/carbon/M)
-	M.restoreEars()
-	..()
-
 /datum/reagent/medicine/cryoxadone
 	name = "Cryoxadone"
 	id = "cryoxadone"
@@ -223,6 +213,7 @@
 	description = "If used in touch-based applications, immediately restores burn wounds as well as restoring more over time. If ingested through other means, deals minor toxin damage."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
+	overdose_threshold = 30
 
 /datum/reagent/medicine/silver_sulfadiazine/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
 	if(iscarbon(M) && M.stat != DEAD)
@@ -238,7 +229,12 @@
 	..()
 
 /datum/reagent/medicine/silver_sulfadiazine/on_mob_life(mob/living/carbon/M)
-	M.adjustFireLoss(-2*REM, 0)
+	M.adjustFireLoss(-1*REM, 0)
+	..()
+	. = 1
+
+/datum/reagent/medicine/silver_sulfadiazine/overdose_process(mob/living/M)
+	M.adjustFireLoss(3*REM, 0)
 	..()
 	. = 1
 
@@ -248,22 +244,18 @@
 	description = "Stimulates the healing of severe burns. Extremely rapidly heals severe burns and slowly heals minor ones. Overdose will worsen existing burns."
 	reagent_state = LIQUID
 	color = "#f7ffa5"
-	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	metabolization_rate = 1 * REAGENTS_METABOLISM
 	overdose_threshold = 25
 
 /datum/reagent/medicine/oxandrolone/on_mob_life(mob/living/carbon/M)
-	if(M.getFireLoss() > 50)
-		M.adjustFireLoss(-4*REM, 0) //Twice as effective as silver sulfadiazine for severe burns
-	else
-		M.adjustFireLoss(-0.5*REM, 0) //But only a quarter as effective for more minor ones
+	M.adjustFireLoss(-2.5*REM, 0)
 	..()
 	. = 1
 
 /datum/reagent/medicine/oxandrolone/overdose_process(mob/living/M)
-	if(M.getFireLoss()) //It only makes existing burns worse
-		M.adjustFireLoss(4.5*REM, 0) // it's going to be healing either 4 or 0.5
-		. = 1
+	M.adjustFireLoss(6*REM, 0)
 	..()
+	. = 1
 
 /datum/reagent/medicine/styptic_powder
 	name = "Styptic Powder"
@@ -271,6 +263,7 @@
 	description = "If used in touch-based applications, immediately restores bruising as well as restoring more over time. If ingested through other means, deals minor toxin damage."
 	reagent_state = LIQUID
 	color = "#FF9696"
+	overdose_threshold = 30
 
 /datum/reagent/medicine/styptic_powder/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
 	if(iscarbon(M) && M.stat != DEAD)
@@ -287,7 +280,12 @@
 
 
 /datum/reagent/medicine/styptic_powder/on_mob_life(mob/living/carbon/M)
-	M.adjustBruteLoss(-2*REM, 0)
+	M.adjustBruteLoss(-1*REM, 0)
+	..()
+	. = 1
+
+/datum/reagent/medicine/styptic_powder/overdose_process(mob/living/M)
+	M.adjustBruteLoss(3*REM, 0)
 	..()
 	. = 1
 
@@ -400,11 +398,11 @@
 	taste_description = "ash"
 
 /datum/reagent/medicine/charcoal/on_mob_life(mob/living/carbon/M)
-	M.adjustToxLoss(-2*REM, 0)
+	M.adjustToxLoss(-1*REM, 0)
 	. = 1
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
-			M.reagents.remove_reagent(R.id,1)
+			M.reagents.remove_reagent(R.id,0.5)
 	..()
 
 /datum/reagent/medicine/omnizine
@@ -413,7 +411,7 @@
 	description = "Slowly heals all damage types. Overdose will cause damage in all types instead."
 	reagent_state = LIQUID
 	color = "#DCDCDC"
-	metabolization_rate = 0.25 * REAGENTS_METABOLISM
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 30
 
 /datum/reagent/medicine/omnizine/on_mob_life(mob/living/carbon/M)
@@ -486,23 +484,19 @@
 	description = "Stimulates the healing of severe bruises. Extremely rapidly heals severe bruising and slowly heals minor ones. Overdose will worsen existing bruising."
 	reagent_state = LIQUID
 	color = "#D2D2D2"
-	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+	metabolization_rate = 1 * REAGENTS_METABOLISM
 	overdose_threshold = 25
 
 
 /datum/reagent/medicine/sal_acid/on_mob_life(mob/living/carbon/M)
-	if(M.getBruteLoss() > 50)
-		M.adjustBruteLoss(-4*REM, 0) //Twice as effective as styptic powder for severe bruising
-	else
-		M.adjustBruteLoss(-0.5*REM, 0) //But only a quarter as effective for more minor ones
+	M.adjustBruteLoss(-2.5*REM, 0)
 	..()
 	. = 1
 
 /datum/reagent/medicine/sal_acid/overdose_process(mob/living/M)
-	if(M.getBruteLoss()) //It only makes existing bruises worse
-		M.adjustBruteLoss(4.5*REM, 0) // it's going to be healing either 4 or 0.5
-		. = 1
+	M.adjustBruteLoss(6*REM, 0)
 	..()
+	. = 1
 
 /datum/reagent/medicine/salbutamol
 	name = "Salbutamol"
@@ -528,6 +522,7 @@
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 
 /datum/reagent/medicine/perfluorodecalin/on_mob_life(mob/living/carbon/human/M)
+	M.adjustToxLoss(0.25*REM, 0)
 	M.adjustOxyLoss(-12*REM, 0)
 	M.silent = max(M.silent, 5)
 	if(prob(33))
@@ -676,16 +671,17 @@
 		M.Jitter(5)
 	..()
 
-/datum/reagent/medicine/oculine
-	name = "Oculine"
-	id = "oculine"
-	description = "Quickly restores eye damage, cures nearsightedness, and has a chance to restore vision to the blind."
+/datum/reagent/medicine/oculinacus
+	name = "Oculinacus"
+	id = "oculinacus"
+	description = "Quickly restores eye damage and instantly restores all hearing to the patient."
 	reagent_state = LIQUID
 	color = "#FFFFFF"
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	taste_description = "dull toxin"
 
-/datum/reagent/medicine/oculine/on_mob_life(mob/living/carbon/M)
+/datum/reagent/medicine/oculinacus/on_mob_life(mob/living/carbon/M)
+	M.restoreEars()
 	var/obj/item/organ/eyes/eyes = M.getorganslot(ORGAN_SLOT_EYES)
 	if (!eyes)
 		return
@@ -718,10 +714,10 @@
 
 /datum/reagent/medicine/atropine/on_mob_life(mob/living/carbon/M)
 	if(M.health < 0)
-		M.adjustToxLoss(-2*REM, 0)
-		M.adjustBruteLoss(-2*REM, 0)
-		M.adjustFireLoss(-2*REM, 0)
-		M.adjustOxyLoss(-5*REM, 0)
+		M.adjustToxLoss(-1*REM, 0)
+		M.adjustBruteLoss(-1*REM, 0)
+		M.adjustFireLoss(-1*REM, 0)
+		M.adjustOxyLoss(-3*REM, 0)
 		. = 1
 	M.losebreath = 0
 	if(prob(20))
@@ -1086,10 +1082,10 @@
 	overdose_threshold = 25
 
 /datum/reagent/medicine/earthsblood/on_mob_life(mob/living/carbon/M)
-	M.adjustBruteLoss(-3 * REM, 0)
-	M.adjustFireLoss(-3 * REM, 0)
-	M.adjustOxyLoss(-15 * REM, 0)
-	M.adjustToxLoss(-3 * REM, 0)
+	M.adjustBruteLoss(-2 * REM, 0)
+	M.adjustFireLoss(-2 * REM, 0)
+	M.adjustOxyLoss(-10 * REM, 0)
+	M.adjustToxLoss(-2 * REM, 0)
 	M.adjustBrainLoss(2 * REM, 150) //This does, after all, come from ambrosia, and the most powerful ambrosia in existence, at that!
 	M.adjustCloneLoss(-1 * REM, 0)
 	M.adjustStaminaLoss(-30 * REM, 0)
@@ -1283,3 +1279,66 @@
 			M.adjustStaminaLoss(1.5*REM, 0)
 	..()
 	return TRUE
+// exclusive chemicals for the "new" medbay sleeper.
+/datum/reagent/medicine/diluted_bicaridine
+	name = "Diluted Bicaridine"
+	id = "diluted_bicaridine"
+	reagent_state = LIQUID
+	metabolization_rate = 1 * REAGENTS_METABOLISM
+	overdose_threshold = 35
+
+/datum/reagent/medicine/diluted_bicaridine/on_mob_life(mob/living/carbon/M)
+	M.adjustBruteLoss(-0.5*REM, 0)
+	..()
+	. = 1
+
+/datum/reagent/medicine/diluted_bicaridine/overdose_process(mob/living/M)
+	M.adjustBruteLoss(1*REM, 0)
+	..()
+	. = 1
+
+/datum/reagent/medicine/diluted_kelotane
+	name = "Diluted Kelotane"
+	id = "diluted_kelotane"
+	reagent_state = LIQUID
+	metabolization_rate = 1 * REAGENTS_METABOLISM
+	overdose_threshold = 35
+
+/datum/reagent/medicine/diluted_kelotane/on_mob_life(mob/living/carbon/M)
+	M.adjustFireLoss(-0.5*REM, 0)
+	..()
+	. = 1
+
+/datum/reagent/medicine/diluted_kelotane/overdose_process(mob/living/M)
+	M.adjustFireLoss(1*REM, 0)
+	..()
+	. = 1
+
+
+/datum/reagent/medicine/diluted_salbutamol
+	name = "Diluted Salbutamol"
+	id = "diluted_salbutamol"
+	reagent_state = LIQUID
+	metabolization_rate = 1 * REAGENTS_METABOLISM
+
+/datum/reagent/medicine/diluted_salbutamol/on_mob_life(mob/living/carbon/M)
+	M.adjustOxyLoss(-1*REM, 0)
+	..()
+	. = 1
+
+/datum/reagent/medicine/diluted_antitoxin
+	name = "Diluted Anti-Toxin"
+	id = "diluted_antitoxin"
+	reagent_state = LIQUID
+	overdose_threshold = 35
+	metabolization_rate = 1 * REAGENTS_METABOLISM
+
+/datum/reagent/medicine/diluted_antitoxin/on_mob_life(mob/living/carbon/M)
+	M.adjustToxLoss(-0.5*REM, 0)
+	..()
+	. = 1
+
+/datum/reagent/medicine/diluted_antitoxin/overdose_process(mob/living/M)
+	M.adjustToxLoss(1*REM, 0)
+	..()
+	. = 1
