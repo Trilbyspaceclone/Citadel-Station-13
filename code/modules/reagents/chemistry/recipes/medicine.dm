@@ -10,19 +10,13 @@
 	name = "Rezadone"
 	id = "rezadone"
 	results = list("rezadone" = 3)
-	required_reagents = list("carpotoxin" = 1, "cryptobiolin" = 1, "copper" = 1)
+	required_reagents = list("mutadone"= 1, "diphenhydramine" = 1, "cryptobiolin" = 1, "epinephrine" = 1)
 
 /datum/chemical_reaction/spaceacillin
 	name = "Spaceacillin"
 	id = "spaceacillin"
 	results = list("spaceacillin" = 2)
 	required_reagents = list("cryptobiolin" = 1, "epinephrine" = 1)
-
-/datum/chemical_reaction/inacusiate
-	name = "inacusiate"
-	id = "inacusiate"
-	results = list("inacusiate" = 2)
-	required_reagents = list("water" = 1, "carbon" = 1, "charcoal" = 1)
 
 /datum/chemical_reaction/synaptizine
 	name = "Synaptizine"
@@ -110,7 +104,7 @@
 	name = "Salbutamol"
 	id = "salbutamol"
 	results = list("salbutamol" = 5)
-	required_reagents = list("sal_acid" = 1, "lithium" = 1, "aluminium" = 1, "bromine" = 1, "ammonia" = 1)
+	required_reagents = list("lithium" = 1, "aluminium" = 1, "bromine" = 1, "ammonia" = 1)
 
 /datum/chemical_reaction/perfluorodecalin
 	name = "Perfluorodecalin"
@@ -131,14 +125,14 @@
 	name = "Diphenhydramine"
 	id = "diphenhydramine"
 	results = list("diphenhydramine" = 4)
-	required_reagents = list("oil" = 1, "carbon" = 1, "bromine" = 1, "diethylamine" = 1, "ethanol" = 1)
+	required_reagents = list("carbon" = 1, "bromine" = 1, "diethylamine" = 1, "ethanol" = 1)
 	mix_message = "The mixture dries into a pale blue powder."
 
-/datum/chemical_reaction/oculine
-	name = "Oculine"
-	id = "oculine"
-	results = list("oculine" = 3)
-	required_reagents = list("charcoal" = 1, "carbon" = 1, "hydrogen" = 1)
+/datum/chemical_reaction/oculinacus
+	name = "Oculinacus"
+	id = "oculinacus"
+	results = list("oculinacus" = 3)
+	required_reagents = list("charcoal" = 2, "carbon" = 2, "hydrogen" = 1, "water" =1)
 	mix_message = "The mixture sputters loudly and becomes a pale pink color."
 
 /datum/chemical_reaction/atropine
@@ -150,14 +144,14 @@
 /datum/chemical_reaction/epinephrine
 	name = "Epinephrine"
 	id = "epinephrine"
-	results = list("epinephrine" = 6)
-	required_reagents = list("phenol" = 1, "acetone" = 1, "diethylamine" = 1, "oxygen" = 1, "chlorine" = 1, "hydrogen" = 1)
+	results = list("epinephrine" = 4)
+	required_reagents = list("diphenhydramine" = 1, "oxygen" = 1, "chlorine" = 1, "hydrogen" = 1)
 
 /datum/chemical_reaction/strange_reagent
 	name = "Strange Reagent"
 	id = "strange_reagent"
 	results = list("strange_reagent" = 3)
-	required_reagents = list("omnizine" = 1, "holywater" = 1, "mutagen" = 1)
+	required_reagents = list("synaptizine" = 1,"cryoxadone" = 1, "omnizine" = 1, "holywater" = 1, "mutagen" = 1)
 
 /datum/chemical_reaction/mannitol
 	name = "Mannitol"
@@ -184,12 +178,6 @@
 	results = list("cryoxadone" = 3)
 	required_reagents = list("stable_plasma" = 1, "acetone" = 1, "mutagen" = 1)
 
-/datum/chemical_reaction/pyroxadone
-	name = "Pyroxadone"
-	id = "pyroxadone"
-	results = list("pyroxadone" = 2)
-	required_reagents = list("cryoxadone" = 1, "slimejelly" = 1)
-
 /datum/chemical_reaction/clonexadone
 	name = "Clonexadone"
 	id = "clonexadone"
@@ -203,35 +191,11 @@
 	results = list("haloperidol" = 5)
 	required_reagents = list("chlorine" = 1, "fluorine" = 1, "aluminium" = 1, "potass_iodide" = 1, "oil" = 1)
 
-/datum/chemical_reaction/bicaridine
-	name = "Bicaridine"
-	id = "bicaridine"
-	results = list("bicaridine" = 3)
-	required_reagents = list("carbon" = 1, "oxygen" = 1, "sugar" = 1)
-
-/datum/chemical_reaction/kelotane
-	name = "Kelotane"
-	id = "kelotane"
-	results = list("kelotane" = 2)
-	required_reagents = list("carbon" = 1, "silicon" = 1)
-
-/datum/chemical_reaction/antitoxin
-	name = "Antitoxin"
-	id = "antitoxin"
-	results = list("antitoxin" = 3)
-	required_reagents = list("nitrogen" = 1, "silicon" = 1, "potassium" = 1)
-
-/datum/chemical_reaction/tricordrazine
-	name = "Tricordrazine"
-	id = "tricordrazine"
-	results = list("tricordrazine" = 3)
-	required_reagents = list("bicaridine" = 1, "kelotane" = 1, "antitoxin" = 1)
-
 /datum/chemical_reaction/regen_jelly
 	name = "Regenerative Jelly"
 	id = "regen_jelly"
 	results = list("regen_jelly" = 2)
-	required_reagents = list("tricordrazine" = 1, "slimejelly" = 1)
+	required_reagents = list("pen_acid" = 1, "slimejelly" = 1)
 
 /datum/chemical_reaction/corazone
 	name = "Corazone"
