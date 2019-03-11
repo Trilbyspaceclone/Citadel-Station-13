@@ -178,6 +178,22 @@
 	new /obj/item/reagent_containers/syringe/lethal/choral(src)
 	new /obj/item/clothing/glasses/hud/health/night(src)
 
+/obj/item/storage/firstaid/improvedtactical
+	name = "improved combat medical kit"
+	desc = "Latest combat chems on the market, the items are packed so tight you mite not be able to place some items them back in!. Even comes with insurance tag on the bottem!"
+	w_class = WEIGHT_CLASS_SMALL
+	icon_state = "tactical"
+
+/obj/item/storage/firstaid/improvedtactical/PopulateContents()
+	if(empty)
+		return
+	new /obj/item/reagent_containers/syringe/piercing(src)
+	new /obj/item/defibrillator/compact/combat/loaded(src)
+	new /obj/item/reagent_containers/hypospray/combat(src)
+	new /obj/item/reagent_containers/hypospray/emergency_combat(src)
+	new /obj/item/reagent_containers/medspray/synthflesh(src)
+	new /obj/item/reagent_containers/medspray/synthflesh(src)
+	new /obj/item/clothing/glasses/hud/health/night(src)
 /*
  * Pill Bottles
  */
