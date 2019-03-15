@@ -15,6 +15,10 @@
 	sparks.autocleanup = TRUE
 	sparks.start()
 
+	var/datum/effect_system/spark_spread/sparks/plasma = new
+	sparks.set_up(20, 20, source)
+	sparks.autocleanup = TRUE
+	sparks.start()
 
 /obj/effect/particle_effect/sparks
 	name = "sparks"
