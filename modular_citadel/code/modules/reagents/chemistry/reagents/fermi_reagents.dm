@@ -60,7 +60,7 @@
 //datum/reagent/fermi/eigenstate/Initialize()
 	. = ..() //Needed!
 	//if(holder && holder.my_atom)
-	location_created = get_turf(loc) //Sets up coordinate of where it was created
+	location_created = get_turf(holder) //Sets up coordinate of where it was created
 	message_admins("Attempting to get creation location from init() [location_created]")
 	//..()
 
@@ -200,15 +200,19 @@
 	//var/mob/living/split_personality/owner
 	//var/mob/living/carbon/SM
 
+/datum/reagent/fermi/SDGF/on_mob_add(mob/living/carbon/M)
+	src.candidates = pollGhostCandidates("Do you want to play as a clone of [M.name] and do you agree to respect their character and act in a similar manner to them? I swear to god if you diddle them I will be very disapointed in you. ", ROLE_SENTIENCE, null, ROLE_SENTIENCE, 300, POLL_IGNORE_SENTIENCE_POTION) // see poll_ignore.dm, should allow admins to ban greifers or bullies
+	message_admins("Attempting to poll")
+
+
 /datum/reagent/fermi/SDGF/on_mob_life(mob/living/carbon/M) //Clones user, then puts a ghost in them! If that fails, makes a braindead clone.
 	//Setup clone
+
+
 	switch(current_cycle)
-		if(0) //I'm not sure how pollCanditdates works, so I did this. Gives a chance for people to say yes.
-			src.candidates = pollGhostCandidates("Do you want to play as a clone of [M.name] and do you agree to respect their character and act in a similar manner to them? I swear to god if you diddle them I will be very disapointed in you. ", ROLE_SENTIENCE, null, ROLE_SENTIENCE, 300, POLL_IGNORE_SENTIENCE_POTION) // see poll_ignore.dm, should allow admins to ban greifers or bullies
-			message_admins("Attempting to poll")
-		if(15)
-			src.candidates = pollGhostCandidates("Do you want to play as a clone of [M.name] and do you agree to respect their character and act in a similar manner to them? I swear to god if you diddle them I will be very disapointed in you. ", ROLE_SENTIENCE, null, ROLE_SENTIENCE, 300, POLL_IGNORE_SENTIENCE_POTION) // see poll_ignore.dm, should allow admins to ban greifers or bullies
-			message_admins("Attempting to poll2")
+		//if(0) //I'm not sure how pollCanditdates works, so I did this. Gives a chance for people to say yes.
+		//	src.candidates = pollGhostCandidates("Do you want to play as a clone of [M.name] and do you agree to respect their character and act in a similar manner to them? I swear to god if you diddle them I will be very disapointed in you. ", ROLE_SENTIENCE, null, ROLE_SENTIENCE, 300, POLL_IGNORE_SENTIENCE_POTION) // see poll_ignore.dm, should allow admins to ban greifers or bullies
+		//	message_admins("Attempting to poll")
 		if(10 to INFINITY)
 			message_admins("Number of candidates [LAZYLEN(src.candidates)]")
 			if(LAZYLEN(src.candidates) && src.playerClone == FALSE) //If there's candidates, clone the person and put them in there!
@@ -240,9 +244,6 @@
 				M.visible_message("[M] suddenly shudders, and splits into two identical twins!")
 				SM.copy_known_languages_from(M, FALSE)
 				src.playerClone =  TRUE
-
-				M.next_move_modifier = 1
-				M.nutrition = 150
 				//BALANCE: should I make them a pacifist, or give them some cellular damage or weaknesses?
 
 				//after_success(user, SM)
@@ -386,3 +387,22 @@
 	if(M.gender == FEMALE)
 		M.gender = MALE
 		M.visible_message("<span class='boldnotice'>[M] suddenly looks more masculine!</span>", "<span class='boldwarning'>You suddenly feel more masculine!</span>")
+
+/datum/reagent/fermi/naninte_b_gone
+	name = "Naninte bain"
+	id = "naninte_b_gone"
+	description = "A rather simple toxin to small nano machines that will kill them off at a rapid rate well in system."
+	color = "#5a7267" // rgb: 90, 114, 103
+	overdose_threshold = 25
+
+/datum/reagent/fermi/naninte_b_gone/on_mob_life(mob/living/carbon/C)
+	if(C./datum/component/nanites)
+		regen_rate = -5.0
+	else
+		retrun
+
+/datum/reagent/fermi/naninte_b_gone/overdose_start(mob/living/carbon/C)
+	if(C./datum/component/nanites)
+		regen_rate = -7.5
+	else
+		retrun
