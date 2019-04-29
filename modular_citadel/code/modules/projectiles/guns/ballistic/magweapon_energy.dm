@@ -1,3 +1,5 @@
+///ammo///
+
 /obj/item/ammo_casing/caseless/mag_e
 	var/energy_cost = 0
 
@@ -51,6 +53,93 @@
 	ammo_type = /obj/item/ammo_casing/caseless/mag_e/amagm_e
 	max_ammo = 24
 
+
+/obj/item/ammo_box/magazine/mmag_e/small
+	name = "magpistol magazine (non-lethal disabler)"
+	icon = 'modular_citadel/icons/obj/guns/cit_guns.dmi'
+	icon_state = "nlmagmag"
+	ammo_type = /obj/item/ammo_casing/caseless/mag_e/anlmags
+	caliber = "mags"
+	max_ammo = 15
+	multiple_sprites = 2
+
+/obj/item/ammo_box/magazine/mmag_e/small/lethal
+	name = "magpistol magazine (lethal)"
+	icon = 'modular_citadel/icons/obj/guns/cit_guns.dmi'
+	icon_state = "smallmagmag"
+	ammo_type = /obj/item/ammo_casing/caseless/mag_e/amags
+
+///cells///
+
+/obj/item/stock_parts/cell/magrifle_e
+	name = "magrifle power supply"
+	maxcharge = 14400
+
+/obj/item/stock_parts/cell/magpistol_e
+	name = "magpistol power supply"
+	maxcharge = 6000
+
+///sci designs///
+
+/datum/design/magrifle_e
+	name = "Magrifle"
+	desc = "An upscaled Magpistol in rifle form."
+	id = "magrifle_e"
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 2000, MAT_URANIUM = 2000, MAT_TITANIUM = 10000, MAT_SILVER = 4000, MAT_GOLD = 2000)
+	build_path = /obj/item/gun/ballistic/automatic/magrifle_e/nopin
+	category = list("Weapons")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/mag_magrifle_e
+	name = "Magrifle Magazine (Lethal)"
+	desc = "A 24-round magazine for the Magrifle."
+	id = "mag_magrifle_e"
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 8000, MAT_SILVER = 1000)
+	build_path = /obj/item/ammo_box/magazine/mmag_e/lethal
+	category = list("Ammo")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/mag_magrifle_e/nl
+	name = "Magrifle Magazine (Non-Lethal)"
+	desc = "A 24- round non-lethal magazine for the Magrifle."
+	id = "mag_magrifle_nl_e"
+	materials = list(MAT_METAL = 6000, MAT_SILVER = 500, MAT_TITANIUM = 500)
+	build_path = /obj/item/ammo_box/magazine/mmag_e
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/magpistol_e
+	name = "Magpistol"
+	desc = "A weapon which fires ferromagnetic slugs."
+	id = "magpisol"
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 7500, MAT_GLASS = 1000, MAT_URANIUM = 1000, MAT_TITANIUM = 5000, MAT_SILVER = 2000)
+	build_path = /obj/item/gun/ballistic/automatic/pistol/mag_e/nopin
+	category = list("Weapons")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/mag_magpistol
+	name = "Magpistol Magazine"
+	desc = "A 14 round magazine for the Magpistol."
+	id = "mag_magpistol"
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 4000, MAT_SILVER = 500)
+	build_path = /obj/item/ammo_box/magazine/mmag_e/small/lethal
+	category = list("Ammo")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+/datum/design/mag_magpistol/nl
+	name = "Magpistol Magazine (Non-Lethal)"
+	desc = "A 14 round non-lethal magazine for the Magpistol."
+	id = "mag_magpistol_nl"
+	materials = list(MAT_METAL = 3000, MAT_SILVER = 250, MAT_TITANIUM = 250)
+	build_path = /obj/item/ammo_box/magazine/mmag_e/small
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
+
+///magrifle///
+
 /obj/item/gun/ballistic/automatic/magrifle_e
 	name = "\improper Magnetic Rifle"
 	desc = "A simple upscalling of the technologies used in the magpistol, the magrifle is capable of firing slightly larger slugs in bursts. Compatible with the magpistol's slugs."
@@ -70,9 +159,6 @@
 	var/cell_type = /obj/item/stock_parts/cell/magrifle_e
 	var/dead_cell = FALSE
 
-/obj/item/stock_parts/cell/magrifle_e
-	name = "magrifle power supply"
-	maxcharge = 14400
 
 /obj/item/gun/ballistic/automatic/magrifle_e/can_shoot()
 	if(QDELETED(cell))
@@ -112,57 +198,8 @@
 	pin = null
 	spawnwithmagazine = FALSE
 
-/datum/design/magrifle_e
-	name = "Magrifle"
-	desc = "An upscaled Magpistol in rifle form."
-	id = "magrifle_e"
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 10000, MAT_GLASS = 2000, MAT_URANIUM = 2000, MAT_TITANIUM = 10000, MAT_SILVER = 4000, MAT_GOLD = 2000)
-	build_path = /obj/item/gun/ballistic/automatic/magrifle/nopin
-	category = list("Weapons")
-	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
-/datum/design/mag_magrifle_e
-	name = "Magrifle Magazine (Lethal)"
-	desc = "A 24-round magazine for the Magrifle."
-	id = "mag_magrifle_e"
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 8000, MAT_SILVER = 1000)
-	build_path = /obj/item/ammo_box/magazine/mmag/lethal
-	category = list("Ammo")
-	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
-
-/datum/design/mag_magrifle_e/nl
-	name = "Magrifle Magazine (Non-Lethal)"
-	desc = "A 24- round non-lethal magazine for the Magrifle."
-	id = "mag_magrifle_nl_e"
-	materials = list(MAT_METAL = 6000, MAT_SILVER = 500, MAT_TITANIUM = 500)
-	build_path = /obj/item/ammo_box/magazine/mmag
-	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
-
-
-
-
-
-
-/obj/item/ammo_box/magazine/mmag_e/small
-	name = "magpistol magazine (non-lethal disabler)"
-	icon = 'modular_citadel/icons/obj/guns/cit_guns.dmi'
-	icon_state = "nlmagmag"
-	ammo_type = /obj/item/ammo_casing/caseless/mag_e/anlmags
-	caliber = "mags"
-	max_ammo = 15
-	multiple_sprites = 2
-
-/obj/item/ammo_box/magazine/mmag_e/small/lethal
-	name = "magpistol magazine (lethal)"
-	icon = 'modular_citadel/icons/obj/guns/cit_guns.dmi'
-	icon_state = "smallmagmag"
-	ammo_type = /obj/item/ammo_casing/caseless/mag_e/amags
-
-/obj/item/stock_parts/cell/magpistol_e
-	name = "magpistol power supply"
-	maxcharge = 6000
+///magpistol///
 
 /obj/item/gun/ballistic/automatic/pistol/mag_e
 	name = "magpistol"
