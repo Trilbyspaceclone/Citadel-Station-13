@@ -112,27 +112,27 @@
 /datum/design/magpistol_e
 	name = "Magpistol"
 	desc = "A weapon which fires ferromagnetic slugs."
-	id = "magpisol"
+	id = "magpistol_e"
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 7500, MAT_GLASS = 1000, MAT_URANIUM = 1000, MAT_TITANIUM = 5000, MAT_SILVER = 2000)
 	build_path = /obj/item/gun/ballistic/automatic/pistol/mag_e/nopin
 	category = list("Weapons")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
-/datum/design/mag_magpistol
+/datum/design/mag_magpistol_e
 	name = "Magpistol Magazine"
 	desc = "A 14 round magazine for the Magpistol."
-	id = "mag_magpistol"
+	id = "mag_magpistol_e"
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 4000, MAT_SILVER = 500)
 	build_path = /obj/item/ammo_box/magazine/mmag_e/small/lethal
 	category = list("Ammo")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
-/datum/design/mag_magpistol/nl
+/datum/design/mag_magpistol_e/nl
 	name = "Magpistol Magazine (Non-Lethal)"
 	desc = "A 14 round non-lethal magazine for the Magpistol."
-	id = "mag_magpistol_nl"
+	id = "mag_magpistol_e_nl"
 	materials = list(MAT_METAL = 3000, MAT_SILVER = 250, MAT_TITANIUM = 250)
 	build_path = /obj/item/ammo_box/magazine/mmag_e/small
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
