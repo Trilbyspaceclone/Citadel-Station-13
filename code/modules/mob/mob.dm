@@ -76,6 +76,8 @@
 	return "a ... thing?"
 
 /mob/proc/show_message(msg, type, alt_msg, alt_type)//Message, type of message (1 or 2), alternative message, alt message type (1 or 2)
+	if(audiovisual_redirect)
+		audiovisual_redirect.show_message(msg ? "<avredirspan class='small'>[msg]</avredirspan>" : null, type, alt_msg ? "<avredirspan class='small'>[alt_msg]</avredirspan>" : null, alt_type)
 
 	if(!client)
 		return
@@ -531,8 +533,8 @@
 			stat(null, "Next Map: [cached.map_name]")
 		stat(null, "Round ID: [GLOB.round_id ? GLOB.round_id : "NULL"]")
 		stat(null, "Server Time: [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")]")
-		stat(null, "Round Time: [worldtime2text()]")
-		stat(null, "Station Time: [station_time_timestamp()]")
+		stat(null, "Round Time: [WORLDTIME2TEXT("hh:mm:ss")]")
+		stat(null, "Station Time: [STATION_TIME_TIMESTAMP("hh:mm:ss")]")
 		stat(null, "Time Dilation: [round(SStime_track.time_dilation_current,1)]% AVG:([round(SStime_track.time_dilation_avg_fast,1)]%, [round(SStime_track.time_dilation_avg,1)]%, [round(SStime_track.time_dilation_avg_slow,1)]%)")
 		if(SSshuttle.emergency)
 			var/ETA = SSshuttle.emergency.getModeStr()
@@ -564,7 +566,12 @@
 			GLOB.cameranet.stat_entry()
 		if(statpanel("Tickets"))
 			GLOB.ahelp_tickets.stat_entry()
-
+		if(length(GLOB.sdql2_queries))
+			if(statpanel("SDQL2"))
+				stat("Access Global SDQL2 List", GLOB.sdql2_vv_statobj)
+				for(var/i in GLOB.sdql2_queries)
+					var/datum/SDQL2_query/Q = i
+					Q.generate_stat()
 	if(listed_turf && client)
 		if(!TurfAdjacent(listed_turf))
 			listed_turf = null

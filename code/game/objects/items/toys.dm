@@ -1039,6 +1039,7 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "snowball"
 	throwforce = 12 //pelt your enemies to death with lumps of snow
+	damtype = STAMINA
 
 /obj/item/toy/snowball/afterattack(atom/target as mob|obj|turf|area, mob/user)
 	. = ..()
@@ -1088,7 +1089,7 @@
 
 /obj/item/toy/clockwork_watch/examine(mob/user)
 	..()
-	to_chat(user, "<span class='info'>Station Time: [station_time_timestamp()]")
+	to_chat(user, "<span class='info'>Station Time: [STATION_TIME_TIMESTAMP("hh:mm:ss")]")
 
 /*
  * Toy Dagger

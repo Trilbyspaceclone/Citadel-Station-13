@@ -24,6 +24,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, world.AVerbsAdmin())
 	/client/proc/game_panel,			/*game panel, allows to change game-mode etc*/
 	/client/proc/check_ai_laws,			/*shows AI and borg laws*/
 	/datum/admins/proc/toggleooc,		/*toggles ooc on/off for everyone*/
+	/datum/admins/proc/toggleooclocal,	/*toggles looc on/off for everyone*/
 	/datum/admins/proc/toggleoocdead,	/*toggles ooc on/off for everyone who is dead*/
 	/datum/admins/proc/toggleaooc,		/*toggles antag ooc on/off*/
 	/datum/admins/proc/toggleenter,		/*toggles whether people can join the current game*/
@@ -70,6 +71,8 @@ GLOBAL_LIST_INIT(admin_verbs_admin, world.AVerbsAdmin())
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,		/*admin-pm list*/
 	/client/proc/panicbunker,
+	/client/proc/addbunkerbypass,
+	/client/proc/revokebunkerbypass,
 	/client/proc/stop_sounds,
 	/client/proc/hide_verbs,			/*hides all our adminverbs*/
 	/client/proc/hide_most_verbs,		/*hides all our hideable adminverbs*/
@@ -118,6 +121,7 @@ GLOBAL_LIST_INIT(admin_verbs_server, world.AVerbsServer())
 	/datum/admins/proc/toggleaban,
 	/client/proc/everyone_random,
 	/datum/admins/proc/toggleAI,
+	/datum/admins/proc/toggleMulticam,
 	/client/proc/cmd_admin_delete,		/*delete an instance/object/mob/etc*/
 	/client/proc/cmd_debug_del_all,
 	/client/proc/toggle_random_events,
@@ -232,6 +236,8 @@ GLOBAL_LIST_INIT(admin_verbs_hideable, list(
 	/proc/release,
 	/client/proc/reload_admins,
 	/client/proc/panicbunker,
+	/client/proc/addbunkerbypass,
+	/client/proc/revokebunkerbypass,
 	/client/proc/admin_change_sec_level,
 	/client/proc/toggle_nuke,
 	/client/proc/cmd_display_del_log,

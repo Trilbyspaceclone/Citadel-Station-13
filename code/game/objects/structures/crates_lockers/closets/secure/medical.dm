@@ -55,6 +55,7 @@
 /obj/structure/closet/secure_closet/CMO/PopulateContents()
 	..()
 	new /obj/item/clothing/neck/cloak/cmo(src)
+	new /obj/item/clothing/head/beret/cmo(src)
 	new /obj/item/storage/backpack/duffelbag/med(src)
 	new /obj/item/clothing/suit/bio_suit/cmo(src)
 	new /obj/item/clothing/head/bio_hood/cmo(src)
@@ -74,9 +75,11 @@
 	new /obj/item/door_remote/chief_medical_officer(src)
 	new /obj/item/clothing/neck/petcollar(src)
 	new /obj/item/pet_carrier(src)
+	new /obj/item/storage/belt/medical/surgery_belt_adv(src)
 	new /obj/item/wallframe/defib_mount(src)
 	new /obj/item/circuitboard/machine/techfab/department/medical(src)
 	new /obj/item/storage/photo_album/CMO(src)
+	new	/obj/item/storage/lockbox/medal/medical(src)
 
 /obj/structure/closet/secure_closet/animal
 	name = "animal control"

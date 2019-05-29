@@ -2,8 +2,11 @@
 	name = "Hivemind Link"
 	desc = "Link your victim's mind into the hivemind for personal interrogation."
 	chemical_cost = 0
-	dna_cost = 0
+	dna_cost = -1
 	req_human = 1
+	action_icon = 'icons/mob/actions/actions_changeling.dmi'
+	action_icon_state = "ling_link"
+	action_background_icon_state = "bg_ling"
 
 /obj/effect/proc_holder/changeling/linglink/can_sting(mob/living/carbon/user)
 	if(!..())

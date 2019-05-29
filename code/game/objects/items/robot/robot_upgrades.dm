@@ -93,7 +93,7 @@
 	desc = "Used to cool a mounted disabler, increasing the potential current in it and thus its recharge rate."
 	icon_state = "cyborg_upgrade3"
 	require_module = 1
-	module_type = /obj/item/robot_module/security
+	//module_type = /obj/item/robot_module/security
 
 /obj/item/borg/upgrade/disablercooler/action(mob/living/silicon/robot/R, user = usr)
 	. = ..()
@@ -503,6 +503,31 @@
 	if (.)
 		var/obj/item/surgical_processor/SP = locate() in R.module
 		R.module.remove_module(SP, TRUE)
+
+/obj/item/borg/upgrade/advhealth
+	name = "advanced cyborg health scanner"
+	desc = "An upgrade to the Medical modules, installing a built-in \
+		advanced health scanner, for better readings on patients."
+	icon_state = "cyborg_upgrade3"
+	require_module = 1
+	module_type = list(
+		/obj/item/robot_module/medical,
+		/obj/item/robot_module/syndicate_medical,
+		/obj/item/robot_module/medihound,
+		/obj/item/robot_module/borgi) 
+
+/obj/item/borg/upgrade/advhealth/action(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if(.)
+		var/obj/item/healthanalyzer/advanced/AH = new(R.module)
+		R.module.basic_modules += AH
+		R.module.add_module(AH, FALSE, TRUE)
+
+/obj/item/borg/upgrade/processor/deactivate(mob/living/silicon/robot/R, user = usr)
+	. = ..()
+	if (.)
+		var/obj/item/healthanalyzer/advanced/AH = locate() in R.module
+		R.module.remove_module(AH, TRUE)
 
 /obj/item/borg/upgrade/ai
 	name = "B.O.R.I.S. module"

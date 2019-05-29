@@ -317,9 +317,9 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/obj/item/bodypart/head/HD = H.get_bodypart(BODY_ZONE_HEAD)
 	if(!HD) //Decapitated
 		return
-
 	if(H.has_trait(TRAIT_HUSK))
 		return
+
 	var/datum/sprite_accessory/S
 	var/list/standing = list()
 
@@ -351,7 +351,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	if(H.facial_hair_style && (FACEHAIR in species_traits) && (!facialhair_hidden || dynamic_fhair_suffix))
 		S = GLOB.facial_hair_styles_list[H.facial_hair_style]
 		if(S)
-
 			//List of all valid dynamic_fhair_suffixes
 			var/static/list/fextensions
 			if(!fextensions)
@@ -410,7 +409,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		else if(H.hair_style && (HAIR in species_traits))
 			S = GLOB.hair_styles_list[H.hair_style]
 			if(S)
-
 				//List of all valid dynamic_hair_suffixes
 				var/static/list/extensions
 				if(!extensions)
@@ -559,7 +557,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			bodyparts_to_add -= "waggingspines"
 
 	if("snout" in mutant_bodyparts) //Take a closer look at that snout!
-		if((H.wear_mask && (H.wear_mask.flags_inv & HIDEFACE)) || (H.head && (H.head.flags_inv & HIDEFACE)) || !HD || HD.status == BODYPART_ROBOTIC)
+		if((H.wear_mask && (H.wear_mask.flags_inv & HIDESNOUT)) || (H.head && (H.head.flags_inv & HIDESNOUT)) || !HD || HD.status == BODYPART_ROBOTIC)
 			bodyparts_to_add -= "snout"
 
 	if("frills" in mutant_bodyparts)
@@ -571,7 +569,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			bodyparts_to_add -= "horns"
 
 	if("ears" in mutant_bodyparts)
-		if(!H.dna.features["ears"] || H.dna.features["ears"] == "None" || H.head && (H.head.flags_inv & HIDEHAIR) || (H.wear_mask && (H.wear_mask.flags_inv & HIDEHAIR)) || !HD || HD.status == BODYPART_ROBOTIC)
+		if(!H.dna.features["ears"] || H.dna.features["ears"] == "None" || H.head && (H.head.flags_inv & HIDEEARS) || (H.wear_mask && (H.wear_mask.flags_inv & HIDEEARS)) || !HD || HD.status == BODYPART_ROBOTIC)
 			bodyparts_to_add -= "ears"
 
 	if("wings" in mutant_bodyparts)
@@ -609,8 +607,12 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			bodyparts_to_add -= "mam_waggingtail"
 
 	if("mam_ears" in mutant_bodyparts)
-		if(!H.dna.features["mam_ears"] || H.dna.features["mam_ears"] == "None" || H.head && (H.head.flags_inv & HIDEHAIR) || (H.wear_mask && (H.wear_mask.flags_inv & HIDEHAIR)) || !HD || HD.status == BODYPART_ROBOTIC)
+		if(!H.dna.features["mam_ears"] || H.dna.features["mam_ears"] == "None" || H.head && (H.head.flags_inv & HIDEEARS) || (H.wear_mask && (H.wear_mask.flags_inv & HIDEEARS)) || !HD || HD.status == BODYPART_ROBOTIC)
 			bodyparts_to_add -= "mam_ears"
+
+	if("mam_snouts" in mutant_bodyparts) //Take a closer look at that snout!
+		if((H.wear_mask && (H.wear_mask.flags_inv & HIDESNOUT)) || (H.head && (H.head.flags_inv & HIDESNOUT)) || !HD || HD.status == BODYPART_ROBOTIC)
+			bodyparts_to_add -= "mam_snouts"
 
 	if("taur" in mutant_bodyparts)
 		if(!H.dna.features["taur"] || H.dna.features["taur"] == "None" || (H.wear_suit && (H.wear_suit.flags_inv & HIDETAUR)))
@@ -689,20 +691,47 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 					S = GLOB.moth_wings_list[H.dna.features["moth_wings"]]
 				if("caps")
 					S = GLOB.caps_list[H.dna.features["caps"]]
-				else
-					S = citadel_mutant_bodyparts(bodypart, H)
+				if("ipc_screen")
+					S = GLOB.ipc_screens_list[H.dna.features["ipc_screen"]]
+				if("ipc_antenna")
+					S = GLOB.ipc_antennas_list[H.dna.features["ipc_antenna"]]
+				if("mam_tail")
+					S = GLOB.mam_tails_list[H.dna.features["mam_tail"]]
+				if("mam_waggingtail")
+					S = GLOB.mam_tails_animated_list[H.dna.features["mam_tail"]]
+				if("mam_body_markings")
+					S = GLOB.mam_body_markings_list[H.dna.features["mam_body_markings"]]
+				if("mam_ears")
+					S = GLOB.mam_ears_list[H.dna.features["mam_ears"]]
+				if("mam_snouts")
+					S = GLOB.mam_snouts_list[H.dna.features["mam_snouts"]]
+				if("taur")
+					S = GLOB.taur_list[H.dna.features["taur"]]
+				if("xenodorsal")
+					S = GLOB.xeno_dorsal_list[H.dna.features["xenodorsal"]]
+				if("xenohead")
+					S = GLOB.xeno_head_list[H.dna.features["xenohead"]]
+				if("xenotail")
+					S = GLOB.xeno_tail_list[H.dna.features["xenotail"]]
+
 			if(!S || S.icon_state == "none")
 				continue
 
 			var/mutable_appearance/accessory_overlay = mutable_appearance(S.icon, layer = -layer)
 
+			accessory_overlay.color = null //just because. reee.
+
 			//A little rename so we don't have to use tail_lizard or tail_human when naming the sprites.
 			if(bodypart == "tail_lizard" || bodypart == "tail_human" || bodypart == "mam_tail" || bodypart == "xenotail")
 				bodypart = "tail"
-			else if(bodypart == "waggingtail_lizard" || bodypart == "waggingtail_human" || bodypart == "mam_waggingtail")
+			else if(bodypart == "waggingtail_lizard")
 				bodypart = "waggingtail"
+			if(bodypart == "mam_waggingtail" || bodypart == "waggingtail_human")
+				bodypart = "tailwag"
 			if(bodypart == "mam_ears" || bodypart == "ears")
 				bodypart = "ears"
+			if(bodypart == "mam_snouts" || bodypart == "snout")
+				bodypart = "snout"
 			if(bodypart == "xenohead")
 				bodypart = "xhead"
 
@@ -713,6 +742,15 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 			if(S.center)
 				accessory_overlay = center_image(accessory_overlay, S.dimension_x, S.dimension_y)
+
+			var/list/colorlist = list()
+			colorlist.Cut()
+			colorlist += ReadRGB("[H.dna.features["mcolor"]]0")
+			colorlist += ReadRGB("[H.dna.features["mcolor2"]]0")
+			colorlist += ReadRGB("[H.dna.features["mcolor3"]]0")
+			colorlist += list(0,0,0, hair_alpha)
+			for(var/index=1, index<=colorlist.len, index++)
+				colorlist[index] = colorlist[index]/255
 
 			if(!(H.has_trait(TRAIT_HUSK)))
 				if(!forced_colour)
@@ -732,6 +770,10 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 								accessory_overlay.color = "#[fixed_mut_color3]"
 							else
 								accessory_overlay.color = "#[H.dna.features["mcolor3"]]"
+
+						if(MATRIXED)
+							accessory_overlay.color = list(colorlist)
+
 						if(HAIR)
 							if(hair_color == "mutcolor")
 								accessory_overlay.color = "#[H.dna.features["mcolor"]]"
@@ -743,6 +785,20 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 							accessory_overlay.color = "#[H.eye_color]"
 				else
 					accessory_overlay.color = forced_colour
+			else
+				if(bodypart == "ears")
+					accessory_overlay.icon_state = "m_ears_none_[layertext]"
+				if(bodypart == "tail")
+					accessory_overlay.icon_state = "m_tail_husk_[layertext]"
+				if(MATRIXED)
+					var/list/husklist = list()
+					husklist += ReadRGB("#a3a3a3")
+					husklist += ReadRGB("#a3a3a3")
+					husklist += ReadRGB("#a3a3a3")
+					husklist += list(0,0,0, hair_alpha)
+					for(var/index=1, index<=husklist.len, index++)
+						husklist[index] = husklist[index]/255
+					accessory_overlay.color = husklist
 			standing += accessory_overlay
 
 			if(S.hasinner)
@@ -1221,6 +1277,9 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		. += speedmod
 		. += H.physiology.speed_mod
 
+	if (H.m_intent == MOVE_INTENT_WALK && H.has_trait(TRAIT_SPEEDY_STEP))
+		. -= 1
+
 	if(H.has_trait(TRAIT_IGNORESLOWDOWN))
 		ignoreslow = 1
 
@@ -1552,7 +1611,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				bloody = 1
 				var/turf/location = H.loc
 				if(istype(location))
-					H.add_splatter_floor(location)
+					H.bleed(totitemdamage)
 				if(get_dist(user, H) <= 1)	//people with TK won't get smeared with blood
 					user.add_mob_blood(H)
 
@@ -1614,13 +1673,19 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 	var/obj/item/bodypart/BP = null
 	if(isbodypart(def_zone))
-		BP = def_zone
+		if(damagetype == STAMINA && istype(def_zone, /obj/item/bodypart/head))
+			BP = H.get_bodypart(check_zone(BODY_ZONE_CHEST))
+		else
+			BP = def_zone
 	else
 		if(!def_zone)
 			def_zone = ran_zone(def_zone)
+		if(damagetype == STAMINA && def_zone == BODY_ZONE_HEAD)
+			def_zone = BODY_ZONE_CHEST
 		BP = H.get_bodypart(check_zone(def_zone))
-		if(!BP)
-			BP = H.bodyparts[1]
+
+	if(!BP)
+		BP = H.bodyparts[1]
 
 	switch(damagetype)
 		if(BRUTE)
@@ -1703,6 +1768,21 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				H.adjust_bodytemperature((thermal_protection+1)*natural + min(thermal_protection * (loc_temp - H.bodytemperature) / BODYTEMP_HEAT_DIVISOR, BODYTEMP_HEATING_MAX))
 			else //we're sweating, insulation hinders out ability to reduce heat - but will reduce the amount of heat we get from the environment
 				H.adjust_bodytemperature(natural*(1/(thermal_protection+1)) + min(thermal_protection * (loc_temp - H.bodytemperature) / BODYTEMP_HEAT_DIVISOR, BODYTEMP_HEATING_MAX))
+		switch((loc_temp - H.bodytemperature)*thermal_protection)
+			if(-INFINITY to -50)
+				H.throw_alert("temp", /obj/screen/alert/cold, 3)
+			if(-50 to -35)
+				H.throw_alert("temp", /obj/screen/alert/cold, 2)
+			if(-35 to -20)
+				H.throw_alert("temp", /obj/screen/alert/cold, 1)
+			if(-20 to 0) //This is the sweet spot where air is considered normal
+				H.clear_alert("temp")
+			if(0 to 15) //When the air around you matches your body's temperature, you'll start to feel warm.
+				H.throw_alert("temp", /obj/screen/alert/hot, 1)
+			if(15 to 30)
+				H.throw_alert("temp", /obj/screen/alert/hot, 2)
+			if(30 to INFINITY)
+				H.throw_alert("temp", /obj/screen/alert/hot, 3)
 
 	// +/- 50 degrees from 310K is the 'safe' zone, where no damage is dealt.
 	if(H.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT && !H.has_trait(TRAIT_RESISTHEAT))
@@ -1718,14 +1798,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		else
 			firemodifier = min(firemodifier, 0)
 			burn_damage = max(log(2-firemodifier,(H.bodytemperature-BODYTEMP_NORMAL))-5,0) // this can go below 5 at log 2.5
-		if (burn_damage)
-			switch(burn_damage)
-				if(0 to 2)
-					H.throw_alert("temp", /obj/screen/alert/hot, 1)
-				if(2 to 4)
-					H.throw_alert("temp", /obj/screen/alert/hot, 2)
-				else
-					H.throw_alert("temp", /obj/screen/alert/hot, 3)
 		burn_damage = burn_damage * heatmod * H.physiology.heat_mod
 		if (H.stat < UNCONSCIOUS && (prob(burn_damage) * 10) / 4) //40% for level 3 damage on humans
 			H.emote("scream")
@@ -1736,17 +1808,13 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "cold", /datum/mood_event/cold)
 		switch(H.bodytemperature)
 			if(200 to BODYTEMP_COLD_DAMAGE_LIMIT)
-				H.throw_alert("temp", /obj/screen/alert/cold, 1)
 				H.apply_damage(COLD_DAMAGE_LEVEL_1*coldmod*H.physiology.cold_mod, BURN)
 			if(120 to 200)
-				H.throw_alert("temp", /obj/screen/alert/cold, 2)
 				H.apply_damage(COLD_DAMAGE_LEVEL_2*coldmod*H.physiology.cold_mod, BURN)
 			else
-				H.throw_alert("temp", /obj/screen/alert/cold, 3)
 				H.apply_damage(COLD_DAMAGE_LEVEL_3*coldmod*H.physiology.cold_mod, BURN)
 
 	else
-		H.clear_alert("temp")
 		SEND_SIGNAL(H, COMSIG_CLEAR_MOOD_EVENT, "cold")
 		SEND_SIGNAL(H, COMSIG_CLEAR_MOOD_EVENT, "hot")
 

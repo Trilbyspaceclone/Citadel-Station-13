@@ -139,7 +139,7 @@
 							SSblackbox.record_feedback("associative", "commendation", 1, list("commender" = "[user.real_name]", "commendee" = "[M.real_name]", "medal" = "[src]", "reason" = input))
 							GLOB.commendations += "[user.real_name] awarded <b>[M.real_name]</b> the <span class='medaltext'>[name]</span>! \n- [input]"
 							commended = TRUE
-							desc += "<br>The inscription reads: [input] - [user.real_name]" 
+							desc += "<br>The inscription reads: [input] - [user.real_name]"
 							log_game("<b>[key_name(M)]</b> was given the following commendation by <b>[key_name(user)]</b>: [input]")
 							message_admins("<b>[key_name(M)]</b> was given the following commendation by <b>[key_name(user)]</b>: [input]")
 
@@ -157,6 +157,16 @@
 	desc = "A bronze heart-shaped medal awarded for sacrifice. It is often awarded posthumously or for severe injury in the line of duty."
 	icon_state = "bronze_heart"
 
+/obj/item/clothing/accessory/medal/engineer
+	name = "\"Shift's Best Electrician\" award"
+	desc = "An award bestowed upon engineers who have excelled at keeping the station running in the best possible condition against all odds."
+	icon_state = "engineer"
+
+/obj/item/clothing/accessory/medal/greytide
+	name = "\"Greytider of the shift\" award"
+	desc = "An award for only the most annoying of assistants.  Locked doors mean nothing to you and behaving is not in your vocabulary"
+	icon_state = "greytide"
+
 /obj/item/clothing/accessory/medal/ribbon
 	name = "ribbon"
 	desc = "A ribbon"
@@ -166,6 +176,11 @@
 /obj/item/clothing/accessory/medal/ribbon/cargo
 	name = "\"cargo tech of the shift\" award"
 	desc = "An award bestowed only upon those cargotechs who have exhibited devotion to their duty in keeping with the highest traditions of Cargonia."
+
+/obj/item/clothing/accessory/medal/ribbon/medical_doctor
+	name = "\"doctor of the shift\" award"
+	desc = "An award bestowed only upon the most capable doctors who have upheld the Hippocratic Oath to the best of their ability"
+	icon_state = "medical_doctor"
 
 /obj/item/clothing/accessory/medal/silver
 	name = "silver medal"
@@ -196,6 +211,12 @@
 	desc = "A golden medal awarded exclusively to those promoted to the rank of captain. It signifies the codified responsibilities of a captain to Nanotrasen, and their undisputable authority over their crew."
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
+/obj/item/clothing/accessory/medal/gold/captain/family
+	name = "old medal of captaincy"
+	desc = "A rustic badge pure gold, has been through hell and back by the looks, the syndcate have been after these by the looks of it for generations..."
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 10) //Pure gold
+	materials = list(MAT_GOLD=2000)
+
 /obj/item/clothing/accessory/medal/gold/heroism
 	name = "medal of exceptional heroism"
 	desc = "An extremely rare golden medal awarded only by CentCom. To receive such a medal is the highest honor and as such, very few exist. This medal is almost never awarded to anybody but commanders."
@@ -218,8 +239,6 @@
 /obj/item/clothing/accessory/medal/plasma/nobel_science
 	name = "nobel sciences award"
 	desc = "A plasma medal which represents significant contributions to the field of science or engineering."
-
-
 
 ////////////
 //Armbands//
@@ -280,7 +299,7 @@
 	desc = "Fills you with the conviction of JUSTICE. Lawyers tend to want to show it to everyone they meet."
 	icon_state = "lawyerbadge"
 	item_color = "lawyerbadge"
-	
+
 /obj/item/clothing/accessory/lawyers_badge/attack_self(mob/user)
 	if(prob(1))
 		user.say("The testimony contradicts the evidence!", forced = "attorney's badge")

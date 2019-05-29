@@ -115,6 +115,7 @@
 	desc = "Can hold various medical equipment."
 	icon_state = "medicalbelt"
 	item_state = "medical"
+	content_overlays = TRUE
 
 /obj/item/storage/belt/medical/ComponentInitialize()
 	. = ..()
@@ -136,6 +137,7 @@
 		/obj/item/flashlight/pen,
 		/obj/item/extinguisher/mini,
 		/obj/item/reagent_containers/hypospray,
+		/obj/item/hypospray/mkii,
 		/obj/item/sensor_device,
 		/obj/item/radio,
 		/obj/item/clothing/gloves/,
@@ -167,6 +169,21 @@
 		/obj/item/implanter,
 		/obj/item/pinpointer/crew
 		))
+
+
+/obj/item/storage/belt/medical/surgery_belt_adv
+	name = "surgical supply belt"
+	desc = "A specialized belt designed for holding surgical equipment. It seems to have specific pockets for each and every surgical tool you can think of."
+	content_overlays = FALSE
+
+/obj/item/storage/belt/medical/surgery_belt_adv/PopulateContents()
+	new /obj/item/hemostat/adv(src)
+	new /obj/item/circular_saw/adv(src)
+	new /obj/item/scalpel/adv(src)
+	new /obj/item/retractor/adv(src)
+	new /obj/item/cautery/adv(src)
+	new /obj/item/surgicaldrill/adv(src)
+	new /obj/item/surgical_drapes(src)
 
 /obj/item/storage/belt/security
 	name = "security belt"
@@ -343,7 +360,7 @@
 		/obj/item/reagent_containers/food/snacks,
 		/obj/item/reagent_containers/food/drinks
 		))
-	
+
 	var/amount = 5
 	var/rig_snacks
 	while(contents.len <= amount)
@@ -369,7 +386,8 @@
 		/obj/item/reagent_containers/food/drinks/soda_cans/space_up,
 		/obj/item/reagent_containers/food/drinks/soda_cans/pwr_game,
 		/obj/item/reagent_containers/food/drinks/soda_cans/lemon_lime,
-		/obj/item/reagent_containers/food/drinks/drinkingglass/filled/nuka_cola
+		/obj/item/reagent_containers/food/drinks/drinkingglass/filled/nuka_cola,
+		/obj/item/reagent_containers/food/drinks/drinkingglass/filled/syndicatebomb
 		))
 		new rig_snacks(src)
 

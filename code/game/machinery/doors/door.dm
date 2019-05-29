@@ -223,7 +223,7 @@
 	if(prob(severity*10 - 20))
 		if(secondsElectrified == 0)
 			secondsElectrified = -1
-			LAZYADD(shockedby, "\[[time_stamp()]\]EM Pulse")
+			LAZYADD(shockedby, "\[[TIME_STAMP("hh:mm:ss", FALSE)]\]EM Pulse")
 			addtimer(CALLBACK(src, .proc/unelectrify), 300)
 
 /obj/machinery/door/proc/unelectrify()
@@ -327,7 +327,11 @@
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE)
 		var/turf/location = get_turf(src)
 		//add_blood doesn't work for borgs/xenos, but add_blood_floor does.
-		L.add_splatter_floor(location)
+		if(iscarbon(L))
+			var/mob/living/carbon/C = L
+			C.bleed(DOOR_CRUSH_DAMAGE)
+		else
+			L.add_splatter_floor(location)
 	for(var/obj/mecha/M in get_turf(src))
 		M.take_damage(DOOR_CRUSH_DAMAGE)
 

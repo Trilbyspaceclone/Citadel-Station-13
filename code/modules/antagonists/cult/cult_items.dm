@@ -319,9 +319,10 @@
 	icon_state = "magus"
 	item_state = "magus"
 	desc = "A helm worn by the followers of Nar'Sie."
-	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDEEARS|HIDEEYES
+	flags_inv = HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDEEARS|HIDEEYES|HIDESNOUT
 	armor = list("melee" = 30, "bullet" = 30, "laser" = 30,"energy" = 20, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 10, "acid" = 10)
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	mutantrace_variation = MUTANTRACE_VARIATION
 
 /obj/item/clothing/suit/magusred
 	name = "magus robes"
@@ -508,7 +509,9 @@
 			if(SEC_LEVEL_GREEN)
 				set_coefficient = 2
 			if(SEC_LEVEL_BLUE)
-				set_coefficient = 1
+				set_coefficient = 1.2
+			if(SEC_LEVEL_AMBER)
+				set_coefficient = 0.8
 			else
 				set_coefficient = 0.5
 		var/surplus = timer - (SSshuttle.emergencyCallTime * set_coefficient)

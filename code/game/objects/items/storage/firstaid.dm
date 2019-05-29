@@ -99,6 +99,31 @@
 		new /obj/item/storage/pill_bottle/charcoal(src)
 	new /obj/item/healthanalyzer(src)
 
+/obj/item/storage/firstaid/radbgone
+	name = "radiation treatment kit"
+	desc = "Used to treat minor toxic blood content and major radiation poisoning."
+	icon_state = "antitoxin"
+	item_state = "firstaid-toxin"
+
+/obj/item/storage/firstaid/radbgone/suicide_act(mob/living/carbon/user)
+	user.visible_message("<span class='suicide'>[user] begins licking the lead paint off \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	return TOXLOSS
+
+/obj/item/storage/firstaid/radbgone/PopulateContents()
+	if(empty)
+		return
+	if(prob(50))
+		new /obj/item/reagent_containers/pill/mutarad(src)
+	if(prob(80))
+		new /obj/item/reagent_containers/pill/antirad_plus(src)
+	new /obj/item/reagent_containers/syringe/charcoal(src)
+	new /obj/item/storage/pill_bottle/charcoal(src)
+	new /obj/item/reagent_containers/pill/mutadone(src)
+	new /obj/item/reagent_containers/pill/antirad(src)
+	new /obj/item/reagent_containers/food/drinks/bottle/vodka(src)
+	new /obj/item/healthanalyzer(src)
+	
+
 /obj/item/storage/firstaid/o2
 	name = "oxygen deprivation treatment kit"
 	desc = "A box full of oxygen goodies."
@@ -191,6 +216,14 @@
 	for(var/i in 1 to 7)
 		new /obj/item/reagent_containers/pill/charcoal(src)
 
+/obj/item/storage/pill_bottle/antirad
+	name = "bottle of charcoal pills"
+	desc = "Contains pills used to counter radiation poisoning."
+
+/obj/item/storage/pill_bottle/anitrad/PopulateContents()
+	for(var/i in 1 to 5)
+		new /obj/item/reagent_containers/pill/antirad(src)
+
 /obj/item/storage/pill_bottle/epinephrine
 	name = "bottle of epinephrine pills"
 	desc = "Contains pills used to stabilize patients."
@@ -263,3 +296,19 @@
 /obj/item/storage/pill_bottle/aranesp/PopulateContents()
 	for(var/i in 1 to 5)
 		new /obj/item/reagent_containers/pill/aranesp(src)
+
+/obj/item/storage/pill_bottle/antirad_plus
+	name = "anti radiation deluxe pill bottle"
+	desc = "The label says 'Med-Co branded pills'."
+
+/obj/item/storage/pill_bottle/antirad_plus/PopulateContents()
+	for(var/i in 1 to 7)
+		new /obj/item/reagent_containers/pill/antirad_plus(src)
+
+/obj/item/storage/pill_bottle/mutarad
+	name = "radiation treatment deluxe pill bottle"
+	desc = "The label says 'Med-Co branded pills' and below that 'Contains Mutadone in each pill!`."
+
+/obj/item/storage/pill_bottle/mutarad/PopulateContents()
+	for(var/i in 1 to 7)
+		new /obj/item/reagent_containers/pill/mutarad(src)

@@ -379,6 +379,26 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/on_found(mob/finder)
 	return
 
+/obj/item/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params) //Copypaste of /atom/MouseDrop() since this requires code in a very specific spot
+	if(!usr || !over)
+		return
+	if(SEND_SIGNAL(src, COMSIG_MOUSEDROP_ONTO, over, usr) & COMPONENT_NO_MOUSEDROP)	//Whatever is receiving will verify themselves for adjacency.
+		return
+	if(over == src)
+		return usr.client.Click(src, src_location, src_control, params)
+	var/list/directaccess = usr.DirectAccess()
+	if((usr.CanReach(src) || (src in directaccess)) && (usr.CanReach(over) || (over in directaccess)))
+		if(!usr.get_active_held_item())
+			usr.UnarmedAttack(src, TRUE)
+			if(usr.get_active_held_item() == src)
+				melee_attack_chain(usr, over)
+			return
+	if(!Adjacent(usr) || !over.Adjacent(usr))
+		return // should stop you from dragging through windows
+
+	over.MouseDrop_T(src,usr)
+	return
+
 // called after an item is placed in an equipment slot
 // user is mob that equipped it
 // slot uses the slot_X defines found in setup.dm
@@ -536,12 +556,16 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	callback = CALLBACK(src, .proc/after_throw, callback) //replace their callback with our own
 	. = ..(target, range, speed, thrower, spin, diagonals_first, callback)
 
-
 /obj/item/proc/after_throw(datum/callback/callback)
 	if (callback) //call the original callback
 		. = callback.Invoke()
 	throw_speed = initial(throw_speed) //explosions change this.
 	item_flags &= ~IN_INVENTORY
+	var/matrix/M = matrix(transform)
+	M.Turn(rand(-170, 170))
+	transform = M
+	pixel_x = rand(-8, 8)
+	pixel_y = rand(-8, 8)
 
 /obj/item/proc/remove_item_from_storage(atom/newLoc) //please use this if you're going to snowflake an item out of a obj/item/storage
 	if(!newLoc)

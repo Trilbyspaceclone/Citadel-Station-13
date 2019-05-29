@@ -538,13 +538,22 @@
 	message_admins("[key_name_admin(usr)] toggled OOC.")
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle OOC", "[GLOB.ooc_allowed ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/datum/admins/proc/toggleooclocal()
+	set category = "Server"
+	set desc="Toggle dat bitch"
+	set name="Toggle Local OOC"
+	toggle_looc()
+	log_admin("[key_name(usr)] toggled LOOC.")
+	message_admins("[key_name_admin(usr)] toggled LOOC.")
+	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Local OOC", "[GLOB.ooc_allowed ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
 /datum/admins/proc/toggleoocdead()
 	set category = "Server"
 	set desc="Toggle dis bitch"
 	set name="Toggle Dead OOC"
 	toggle_dooc()
 
-	log_admin("[key_name(usr)] toggled OOC.")
+	log_admin("[key_name(usr)] toggled Dead OOC.")
 	message_admins("[key_name_admin(usr)] toggled Dead OOC.")
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Dead OOC", "[GLOB.dooc_allowed ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -604,6 +613,24 @@
 	log_admin("[key_name(usr)] toggled AI allowed.")
 	world.update_status()
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle AI", "[!alai ? "Disabled" : "Enabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/datum/admins/proc/toggleMulticam()
+	set category = "Server"
+	set desc="Turns mutlicam on and off."
+	set name="Toggle Multicam"
+	var/almcam = CONFIG_GET(flag/allow_ai_multicam)
+	CONFIG_SET(flag/allow_ai_multicam, !almcam)
+	if (almcam)
+		to_chat(world, "<B>The AI no longer has multicam.</B>")
+		for(var/i in GLOB.ai_list)
+			var/mob/living/silicon/ai/aiPlayer = i
+			if(aiPlayer.multicam_on)
+				aiPlayer.end_multicam()
+	else
+		to_chat(world, "<B>The AI now has multicam.</B>")
+	log_admin("[key_name(usr)] toggled AI multicam.")
+	world.update_status()
+	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Multicam", "[!almcam ? "Disabled" : "Enabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/toggleaban()
 	set category = "Server"

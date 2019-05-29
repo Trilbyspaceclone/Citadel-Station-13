@@ -463,6 +463,19 @@
 		M.radiation -= min(M.radiation, 8)
 	..()
 
+/datum/reagent/medicine/prussian_blue
+	name = "Prussian Blue"
+	id = "prussian_blue"
+	description = "Efficiently restores heavy radiation damage."
+	reagent_state = LIQUID
+	color = "#003153" // RGB 0, 49, 83
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+
+/datum/reagent/medicine/prussian_blue/on_mob_life(mob/living/carbon/M)
+	if(M.radiation > 0)
+		M.radiation -= min(M.radiation, 20)
+	..()
+
 /datum/reagent/medicine/pen_acid
 	name = "Pentetic Acid"
 	id = "pen_acid"
@@ -546,19 +559,14 @@
 	overdose_threshold = 45
 	addiction_threshold = 30
 
-/datum/reagent/medicine/ephedrine/on_mob_add(mob/living/L)
-	..()
-	L.add_trait(TRAIT_GOTTAGOFAST, id)
-
-/datum/reagent/medicine/ephedrine/on_mob_delete(mob/living/L)
-	L.remove_trait(TRAIT_GOTTAGOFAST, id)
-	..()
-
 /datum/reagent/medicine/ephedrine/on_mob_life(mob/living/carbon/M)
 	M.AdjustStun(-20, 0)
 	M.AdjustKnockdown(-20, 0)
 	M.AdjustUnconscious(-20, 0)
-	M.adjustStaminaLoss(-1*REM, 0)
+	M.adjustStaminaLoss(-4.5*REM, 0)
+	M.Jitter(10)
+	if(prob(50))
+		M.confused = max(M.confused, 1)
 	..()
 	return TRUE
 

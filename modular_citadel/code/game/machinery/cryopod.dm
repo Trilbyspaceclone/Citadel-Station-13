@@ -166,7 +166,12 @@
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
 		/obj/item/mmi/posibrain,
+		/obj/item/gun/energy/laser/mounted,
+		/obj/item/gun/energy/e_gun/advtaser/mounted,
+		/obj/item/gun/ballistic/revolver/grenadelauncher/cyborg,
 		/obj/item/gun/energy/disabler/cyborg,
+		/obj/item/gun/energy/e_gun/advtaser/cyborg,
+		/obj/item/gun/energy/printer,
 		/obj/item/gun/energy/kinetic_accelerator/cyborg,
 		/obj/item/gun/energy/laser/cyborg
 	)
@@ -360,10 +365,8 @@
 
 	// Ghost and delete the mob.
 	if(!mob_occupant.get_ghost(1))
-		if(world.time < 30 * 600)//before the 30 minute mark
-			mob_occupant.ghostize(0) // Players despawned too early may not re-enter the game
-		else
-			mob_occupant.ghostize(1)
+		mob_occupant.ghostize(0) // Players who cryo out may not re-enter the round
+
 	QDEL_NULL(occupant)
 	open_machine()
 	name = initial(name)

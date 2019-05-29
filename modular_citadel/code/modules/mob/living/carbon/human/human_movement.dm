@@ -4,7 +4,7 @@
 /mob/living/carbon/human/Move(NewLoc, direct)
 	var/oldpseudoheight = pseudo_z_axis
 	. = ..()
-	if(. && sprinting && !(movement_type & FLYING) && canmove && !resting && m_intent == MOVE_INTENT_RUN)
+	if(. && sprinting && !(movement_type & FLYING) && canmove && !resting && m_intent == MOVE_INTENT_RUN && has_gravity(loc) && !pulledby)
 		adjustStaminaLossBuffered(0.3)
 		if((oldpseudoheight - pseudo_z_axis) >= 8)
 			to_chat(src, "<span class='warning'>You trip off of the elevated surface!</span>")
@@ -31,3 +31,7 @@
 		for(var/obj/screen/sprintbutton/selector in hud_used.static_inventory)
 			selector.insert_witty_toggle_joke_here(src)
 	return TRUE
+
+/mob/living/carbon/human/proc/sprint_hotkey(targetstatus)
+	if(targetstatus ? !sprinting : sprinting)
+		togglesprint()

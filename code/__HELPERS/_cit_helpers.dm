@@ -37,6 +37,7 @@ GLOBAL_LIST_EMPTY(mam_ears_list)
 GLOBAL_LIST_EMPTY(mam_tails_list)
 GLOBAL_LIST_EMPTY(mam_tails_animated_list)
 GLOBAL_LIST_EMPTY(taur_list)
+GLOBAL_LIST_EMPTY(mam_snouts_list)
 
 	//Exotic Species
 GLOBAL_LIST_EMPTY(exotic_tails_list)
@@ -89,10 +90,6 @@ GLOBAL_LIST_INIT(dildo_colors, list(//mostly neon colors
 		"Purple"	= "#e300ff"//purple
 		))
 
-//Looc stuff
-GLOBAL_VAR_INIT(looc_allowed, 1)
-GLOBAL_VAR_INIT(dlooc_allowed, 1)
-
 //Crew objective and miscreants stuff
 GLOBAL_VAR_INIT(miscreants_allowed, FALSE)
 
@@ -122,36 +119,6 @@ GLOBAL_VAR_INIT(miscreants_allowed, FALSE)
 	prefs.save_preferences()
 	src << "You will [(prefs.chat_toggles & CHAT_LOOC) ? "now" : "no longer"] see messages on the LOOC channel."
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "TLOOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/datum/admins/proc/togglelooc()
-	set category = "Server"
-	set desc="Fukken metagamers"
-	set name="Toggle LOOC"
-	toggle_looc()
-	log_admin("[key_name(usr)] toggled LOOC.")
-	message_admins("[key_name_admin(usr)] toggled LOOC.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "TLOOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/proc/toggle_looc(toggle = null)
-	if(toggle != null) //if we're specifically en/disabling ooc
-		if(toggle != GLOB.looc_allowed)
-			GLOB.looc_allowed = toggle
-		else
-			return
-	else //otherwise just toggle it
-		GLOB.looc_allowed = !GLOB.looc_allowed
-	world << "<B>The LOOC channel has been globally [GLOB.looc_allowed ? "enabled" : "disabled"].</B>"
-
-/datum/admins/proc/toggleloocdead()
-	set category = "Server"
-	set desc="Toggle dis bitch"
-	set name="Toggle Dead LOOC"
-	GLOB.dlooc_allowed = !( GLOB.dlooc_allowed )
-
-	log_admin("[key_name(usr)] toggled Dead LOOC.")
-	message_admins("[key_name_admin(usr)] toggled Dead LOOC.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "TDLOOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
 
 /mob/living/carbon/proc/has_penis()
 	if(getorganslot("penis"))//slot shared with ovipositor
@@ -242,7 +209,7 @@ GLOBAL_VAR_INIT(miscreants_allowed, FALSE)
 			if("Wolf")
 				hdna.features["mam_tail"] = "Wolf"
 				hdna.features["mam_ears"] = "Wolf"
-				hdna.features["snout"] = "Wolf"
+				hdna.features["mam_snouts"] = "Wolf"
 				hdna.features["mam_body_markings"] = "Wolf"
 				hdna.features["mcolor"] = "555"
 				hdna.features["mcolor2"] = "999"
@@ -250,7 +217,7 @@ GLOBAL_VAR_INIT(miscreants_allowed, FALSE)
 			if("Fox")
 				hdna.features["mam_tail"] = "Fox"
 				hdna.features["mam_ears"] = "Fox"
-				hdna.features["snout"] = "Fox, Long"
+				hdna.features["mam_snouts"] = "Fox, Long"
 				hdna.features["mam_body_markings"] = "Fox"
 				hdna.features["mcolor"] = "f60"
 				hdna.features["mcolor2"] = "fff"
@@ -258,6 +225,6 @@ GLOBAL_VAR_INIT(miscreants_allowed, FALSE)
 			if("Fennec")
 				hdna.features["mam_tail"] = "Fennec"
 				hdna.features["mam_ears"] = "Fennec"
-				hdna.features["snout"] = "Fox, Short"
+				hdna.features["mam_snouts"] = "Fox, Short"
 				hdna.features["mam_body_markings"] = "Fox"
 		H.regenerate_icons()
