@@ -95,7 +95,6 @@
 /////////////////////////GAS OVERLAYS//////////////////////////////
 
 /turf/open/proc/update_visuals()
-	var/list/new_overlay_types = tile_graphic()
 	var/list/atmos_overlay_types = src.atmos_overlay_types // Cache for free performance
 
 	if (atmos_overlay_types)
@@ -111,12 +110,18 @@
 	UNSETEMPTY(new_overlay_types)
 	src.atmos_overlay_types = new_overlay_types
 
-/turf/open/proc/tile_graphic()
+	var/list/new_overlay_types = list()
 	var/static/list/nonoverlaying_gases = typecache_of_gases_with_no_overlays()
-	if(!air)
+
+	if(!air) // 2019-05-14: was not able to get this path to fire in testing. Consider removing/looking at callers -Naksu
+		if (atmos_overlay_types)
+			for(var/overlay in atmos_overlay_types)
+				vis_contents -= overlay
+			src.atmos_overlay_types = null
 		return
-	. = new /list
+
 	var/list/gases = air.gases
+
 	for(var/id in gases)
 		if (nonoverlaying_gases[id])
 			continue
@@ -124,7 +129,7 @@
 		var/gas_meta = gas[GAS_META]
 		var/gas_overlay = gas_meta[META_GAS_OVERLAY]
 		if(gas_overlay && gas[MOLES] > gas_meta[META_GAS_MOLES_VISIBLE])
-			. += gas_overlay[min(FACTOR_GAS_VISIBLE_MAX, CEILING(gas[MOLES] / MOLES_GAS_VISIBLE_STEP, 1))]
+			new_overlay_types += gas_overlay[min(FACTOR_GAS_VISIBLE_MAX, CEILING(gas[MOLES] / MOLES_GAS_VISIBLE_STEP, 1))]
 
 /proc/typecache_of_gases_with_no_overlays()
 	. = list()
