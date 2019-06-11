@@ -2,7 +2,7 @@
 	layer = TURF_LAYER
 	plane = GAME_PLANE
 	var/level = 2
-	var/article  // If non-null, overrides a/an/some in all cases
+	var/article  // If non-null, overrides a/an/some in all cases 
 
 	var/flags_1 = NONE
 	var/interaction_flags_atom = NONE
