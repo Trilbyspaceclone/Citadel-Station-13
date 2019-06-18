@@ -876,7 +876,7 @@
 	squeak_override = list('modular_citadel/sound/voice/nya.ogg' = 1)
 
 /obj/item/toy/plush/catgirl/mikeel
-	desc = "An adorable stuffed toy of some tauric cat person."
+	desc = "An adorable stuff1inr2in1p2nic cat person."
 	icon_state = "mikeel"
 	item_state = "mikeel"
 
