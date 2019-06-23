@@ -755,5 +755,5 @@
 	desc = "A simple, inconspicuous harness replacement for a jumpsuit."
 	icon = 'modular_citadel/icons/obj/clothing/cit_clothes.dmi'
 	icon_state = "gear_harness"
-	item_state = "golem"  //This is dumb and hacky but was here when I got here.//No, it really isn't. Why make a new blank clothing sprite if we already have one?
+	item_state = "gear_harness"  //We dont use golem do to being a item, item without faces making it default to error suit sprites
 	body_parts_covered = CHEST|GROIN
