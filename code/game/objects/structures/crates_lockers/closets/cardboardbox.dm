@@ -9,23 +9,27 @@
 	integrity_failure = 0
 	can_weld_shut = 0
 	cutting_tool = /obj/item/wirecutters
-	open_sound = "rustle"
 	material_drop = /obj/item/stack/sheet/cardboard
 	delivery_icon = "deliverybox"
 	anchorable = FALSE
+	open_sound = 'sound/machines/cardboard_box.ogg'
+	close_sound = 'sound/machines/cardboard_box.ogg'
+	open_sound_volume = 35
+	close_sound_volume = 35
 	var/move_speed_multiplier = 1
 	var/move_delay = FALSE
 	var/egged = 0
-	var/use_mob_movespeed = FALSE //Citadel adds snowflake box handling
 
-/obj/structure/closet/cardboard/relaymove(mob/user, direction)
-	if(opened || move_delay || user.stat || user.IsStun() || user.IsKnockdown() || user.IsUnconscious() || !isturf(loc) || !has_gravity(loc))
+/obj/structure/closet/cardboard/relaymove(mob/living/user, direction)
+	if(!istype(user) || opened || move_delay || user.incapacitated() || !isturf(loc) || !has_gravity(loc))
 		return
 	move_delay = TRUE
-	if(step(src, direction))
-		addtimer(CALLBACK(src, .proc/ResetMoveDelay), (use_mob_movespeed ? user.movement_delay() : CONFIG_GET(number/movedelay/walk_delay)) * move_speed_multiplier)
+	var/oldloc = loc
+	step(src, direction)
+	if(oldloc != loc)
+		addtimer(CALLBACK(src, .proc/ResetMoveDelay), CONFIG_GET(number/movedelay/walk_delay) * move_speed_multiplier)
 	else
-		ResetMoveDelay()
+		move_delay = FALSE
 
 /obj/structure/closet/cardboard/proc/ResetMoveDelay()
 	move_delay = FALSE
@@ -57,11 +61,6 @@
 	I.alpha = 0
 	animate(I, pixel_z = 32, alpha = 255, time = 5, easing = ELASTIC_EASING)
 
-/obj/structure/closet/cardboard/handle_lock_addition() //Whoever heard of a lockable cardboard box anyway
-	return
-
-/obj/structure/closet/cardboard/handle_lock_removal()
-	return
 
 /obj/structure/closet/cardboard/metal
 	name = "large metal box"
@@ -72,6 +71,10 @@
 	resistance_flags = NONE
 	move_speed_multiplier = 2
 	cutting_tool = /obj/item/weldingtool
-	open_sound = 'sound/machines/click.ogg'
+	open_sound = 'sound/machines/crate_open.ogg'
+	close_sound = 'sound/machines/crate_close.ogg'
+	open_sound_volume = 35
+	close_sound_volume = 50
 	material_drop = /obj/item/stack/sheet/plasteel
+
 #undef SNAKE_SPAM_TICKS
