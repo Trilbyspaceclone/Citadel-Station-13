@@ -121,7 +121,6 @@ GLOBAL_LIST_EMPTY(rubber_toolbox_icons)
 	desc = "A toolbox painted black with a red stripe. It looks more heavier than normal toolboxes."
 	force = 15
 	throwforce = 18
-	can_rubberify = FALSE
 
 /obj/item/storage/toolbox/syndicate/ComponentInitialize()
 	. = ..()
@@ -294,7 +293,7 @@ GLOBAL_LIST_EMPTY(rubber_toolbox_icons)
 	desc = replacetext(desc, "robust", "safe")
 	desc = replacetext(desc, "heavier", "bouncier")
 	DISABLE_BITFIELD(flags_1, CONDUCT_1)
-	materials = null
+	MAT_PLASTIC = 500
 	damtype = STAMINA
 	force += 3 //to compensate the higher stamina K.O. threshold compared to actual health.
 	throwforce += 3
